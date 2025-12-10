@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Mail, Send } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { useState } from "react"
 
 export function Newsletter() {
@@ -22,83 +22,51 @@ export function Newsletter() {
   }
 
   return (
-    <section className="py-16 md:py-24 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-muted/50 to-accent/5" />
-
+    <section className="py-16 md:py-24 border-t border-border">
       <div className="container mx-auto max-w-6xl px-4">
-        <div className="relative rounded-2xl border border-border/40 bg-card/80 backdrop-blur-sm p-8 md:p-12 overflow-hidden">
-          {/* Decorative elements */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl" />
+        <div className="max-w-xl">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-4">
+            Dapatkan artikel terbaru
+          </h2>
+          <p className="text-muted-foreground mb-6">
+            Berlangganan newsletter untuk mendapatkan update artikel, tutorial, dan tips langsung ke inbox Anda.
+          </p>
 
-          <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-8">
-            {/* Content */}
-            <div className="flex-1">
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                  <Mail className="h-5 w-5 text-primary" />
-                </div>
-                <span className="text-sm font-medium text-muted-foreground">Newsletter</span>
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">
-                Tetap Update
-              </h2>
-              <p className="text-muted-foreground max-w-md">
-                Berlangganan newsletter saya dan dapatkan artikel terbaru, tutorial, dan tips
-                langsung ke inbox Anda. Tanpa spam, berhenti langganan kapan saja.
-              </p>
-            </div>
-
-            {/* Form */}
-            <div className="flex-1 max-w-md">
-              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-                <div className="relative flex-1">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Masukkan email Anda"
-                    required
-                    className="w-full h-11 px-4 rounded-lg border border-border bg-background/50 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  size="lg"
-                  disabled={status === "loading" || status === "success"}
-                  className="min-w-[120px]"
-                >
-                  {status === "loading" ? (
-                    <span className="flex items-center">
-                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Mengirim
-                    </span>
-                  ) : status === "success" ? (
-                    <span className="flex items-center">
-                      ✓ Berlangganan
-                    </span>
-                  ) : (
-                    <span className="flex items-center">
-                      Langganan
-                      <Send className="ml-2 h-4 w-4" />
-                    </span>
-                  )}
-                </Button>
-              </form>
-              {status === "success" && (
-                <p className="text-sm text-green-600 dark:text-green-400 mt-2">
-                  Terima kasih sudah berlangganan! Cek inbox Anda untuk konfirmasi.
-                </p>
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="nama@email.com"
+              required
+              className="flex-1 h-11 px-4 rounded-lg border border-border bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+            />
+            <Button
+              type="submit"
+              disabled={status === "loading" || status === "success"}
+            >
+              {status === "loading" ? (
+                "Mengirim..."
+              ) : status === "success" ? (
+                "✓ Berhasil"
+              ) : (
+                <>
+                  Langganan
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </>
               )}
-              <p className="text-xs text-muted-foreground mt-3">
-                Dengan berlangganan, Anda menyetujui Kebijakan Privasi kami dan bersedia menerima update.
-              </p>
-            </div>
-          </div>
+            </Button>
+          </form>
+
+          {status === "success" && (
+            <p className="text-sm text-green-600 dark:text-green-400 mt-3">
+              Terima kasih! Cek inbox Anda untuk konfirmasi.
+            </p>
+          )}
+
+          <p className="text-xs text-muted-foreground mt-4">
+            Tanpa spam. Berhenti langganan kapan saja.
+          </p>
         </div>
       </div>
     </section>

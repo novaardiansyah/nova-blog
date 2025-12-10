@@ -5,11 +5,9 @@ import Link from "next/link"
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
-      {/* Background gradient */}
+      {/* Background gradient - simplified for performance */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-b from-muted/30 via-transparent to-transparent" />
       </div>
 
       <div className="container mx-auto max-w-6xl px-4 py-24 md:py-32">
@@ -48,22 +46,6 @@ export function Hero() {
                 Tentang Saya
               </Link>
             </Button>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-border/40 w-full max-w-lg">
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-foreground">50+</div>
-              <div className="text-sm text-muted-foreground mt-1">Artikel</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-foreground">10K+</div>
-              <div className="text-sm text-muted-foreground mt-1">Pembaca</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-foreground">3+</div>
-              <div className="text-sm text-muted-foreground mt-1">Tahun</div>
-            </div>
           </div>
         </div>
       </div>
