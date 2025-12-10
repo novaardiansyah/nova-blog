@@ -17,35 +17,35 @@ export function Hero() {
           {/* Badge */}
           <div className="inline-flex items-center rounded-full border border-border/60 bg-muted/50 px-4 py-1.5 text-sm font-medium text-muted-foreground mb-8 backdrop-blur-sm">
             <Sparkles className="h-4 w-4 mr-2 text-primary" />
-            Welcome to my personal blog
+            Selamat datang di blog pribadi saya
           </div>
 
           {/* Heading */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-            Ideas, Stories, and{" "}
+            Ide, Cerita, dan{" "}
             <span className="bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent">
-              Insights
+              Inspirasi
             </span>
           </h1>
 
           {/* Description */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed mb-8">
-            Full Stack Developer creating modern web and mobile applications.
-            Join me as I share tutorials, insights, and my journey in building robust APIs,
-            clean interfaces, and cutting-edge solutions.
+            Full Stack Developer yang antusias membuat aplikasi web dan mobile modern.
+            Bergabunglah dengan saya dalam berbagi tutorial, pengalaman, dan perjalanan
+            membangun API yang handal, antarmuka yang bersih, dan solusi terkini.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <Button size="lg" className="group" asChild>
               <Link href="/blog">
-                Read Latest Posts
+                Baca Artikel Terbaru
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
               <Link href="/about">
-                About Me
+                Tentang Saya
               </Link>
             </Button>
           </div>
@@ -54,15 +54,15 @@ export function Hero() {
           <div className="grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-border/40 w-full max-w-lg">
             <div className="text-center">
               <div className="text-2xl md:text-3xl font-bold text-foreground">50+</div>
-              <div className="text-sm text-muted-foreground mt-1">Articles</div>
+              <div className="text-sm text-muted-foreground mt-1">Artikel</div>
             </div>
             <div className="text-center">
               <div className="text-2xl md:text-3xl font-bold text-foreground">10K+</div>
-              <div className="text-sm text-muted-foreground mt-1">Readers</div>
+              <div className="text-sm text-muted-foreground mt-1">Pembaca</div>
             </div>
             <div className="text-center">
               <div className="text-2xl md:text-3xl font-bold text-foreground">3+</div>
-              <div className="text-sm text-muted-foreground mt-1">Years</div>
+              <div className="text-sm text-muted-foreground mt-1">Tahun</div>
             </div>
           </div>
         </div>

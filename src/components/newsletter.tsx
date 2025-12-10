@@ -42,11 +42,11 @@ export function Newsletter() {
                 <span className="text-sm font-medium text-muted-foreground">Newsletter</span>
               </div>
               <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">
-                Stay Updated
+                Tetap Update
               </h2>
               <p className="text-muted-foreground max-w-md">
-                Subscribe to my newsletter and get the latest articles, tutorials, and insights
-                delivered straight to your inbox. No spam, unsubscribe anytime.
+                Berlangganan newsletter saya dan dapatkan artikel terbaru, tutorial, dan tips
+                langsung ke inbox Anda. Tanpa spam, berhenti langganan kapan saja.
               </p>
             </div>
 
@@ -58,7 +58,7 @@ export function Newsletter() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
+                    placeholder="Masukkan email Anda"
                     required
                     className="w-full h-11 px-4 rounded-lg border border-border bg-background/50 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                   />
@@ -75,15 +75,15 @@ export function Newsletter() {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      Sending
+                      Mengirim
                     </span>
                   ) : status === "success" ? (
                     <span className="flex items-center">
-                      ✓ Subscribed
+                      ✓ Berlangganan
                     </span>
                   ) : (
                     <span className="flex items-center">
-                      Subscribe
+                      Langganan
                       <Send className="ml-2 h-4 w-4" />
                     </span>
                   )}
@@ -91,11 +91,11 @@ export function Newsletter() {
               </form>
               {status === "success" && (
                 <p className="text-sm text-green-600 dark:text-green-400 mt-2">
-                  Thanks for subscribing! Check your inbox to confirm.
+                  Terima kasih sudah berlangganan! Cek inbox Anda untuk konfirmasi.
                 </p>
               )}
               <p className="text-xs text-muted-foreground mt-3">
-                By subscribing, you agree to our Privacy Policy and consent to receive updates.
+                Dengan berlangganan, Anda menyetujui Kebijakan Privasi kami dan bersedia menerima update.
               </p>
             </div>
           </div>

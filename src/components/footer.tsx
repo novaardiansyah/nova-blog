@@ -22,8 +22,7 @@ export function Footer() {
               <span className="font-semibold text-xl tracking-tight">Nova Blog</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Full Stack Developer passionate about creating modern web applications.
-              Sharing thoughts, tutorials, and insights about web development and technology.
+              Seorang developer antusias yang berfokus pada pengembangan solusi digital yang efisien, bersih, dan berkualitas. Berkomitmen untuk menghadirkan inovasi terbaik dengan standar profesional.
             </p>
             {/* Social Links */}
             <div className="flex items-center space-x-2 mt-6">

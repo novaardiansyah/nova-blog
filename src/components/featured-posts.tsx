@@ -6,50 +6,50 @@ import Link from "next/link"
 // Demo data - replace with actual data fetching
 const featuredPosts = [
   {
-    title: "Building Modern Web Applications with Next.js 15",
-    excerpt: "Discover the latest features in Next.js 15 and learn how to build performant, scalable web applications with the new App Router and Server Components.",
+    title: "Membangun Aplikasi Web Modern dengan Next.js 15",
+    excerpt: "Temukan fitur terbaru di Next.js 15 dan pelajari cara membangun aplikasi web yang performan dan skalabel dengan App Router dan Server Components.",
     slug: "building-modern-web-applications-nextjs-15",
     coverImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80",
     category: "Web Development",
-    date: "Dec 10, 2025",
-    readTime: "8 min read",
+    date: "10 Des 2025",
+    readTime: "8 menit baca",
     featured: true,
   },
   {
-    title: "The Complete Guide to TypeScript in 2025",
-    excerpt: "Master TypeScript from basics to advanced patterns. Learn type safety, generics, and best practices.",
+    title: "Panduan Lengkap TypeScript di 2025",
+    excerpt: "Kuasai TypeScript dari dasar hingga pola lanjutan. Pelajari type safety, generics, dan best practices.",
     slug: "complete-guide-typescript-2025",
     coverImage: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&q=80",
     category: "TypeScript",
-    date: "Dec 8, 2025",
-    readTime: "12 min read",
+    date: "8 Des 2025",
+    readTime: "12 menit baca",
   },
   {
-    title: "Mastering CSS Grid and Flexbox Layouts",
-    excerpt: "Create beautiful, responsive layouts with modern CSS techniques. From basics to advanced patterns.",
+    title: "Menguasai Layout CSS Grid dan Flexbox",
+    excerpt: "Buat layout yang indah dan responsif dengan teknik CSS modern. Dari dasar hingga pola lanjutan.",
     slug: "mastering-css-grid-flexbox",
     coverImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
     category: "CSS",
-    date: "Dec 5, 2025",
-    readTime: "6 min read",
+    date: "5 Des 2025",
+    readTime: "6 menit baca",
   },
   {
-    title: "Introduction to Tailwind CSS v4",
-    excerpt: "Explore the new features in Tailwind CSS v4 and how it changes the way we style web applications.",
+    title: "Pengenalan Tailwind CSS v4",
+    excerpt: "Jelajahi fitur baru di Tailwind CSS v4 dan bagaimana ini mengubah cara kita men-styling aplikasi web.",
     slug: "introduction-tailwind-css-v4",
     coverImage: "https://images.unsplash.com/photo-1517134191118-9d595e4c8c2b?w=800&q=80",
     category: "CSS",
-    date: "Dec 3, 2025",
-    readTime: "5 min read",
+    date: "3 Des 2025",
+    readTime: "5 menit baca",
   },
   {
-    title: "React Server Components Explained",
-    excerpt: "Understanding how React Server Components work and when to use them in your applications.",
+    title: "React Server Components Dijelaskan",
+    excerpt: "Memahami cara kerja React Server Components dan kapan menggunakannya dalam aplikasi Anda.",
     slug: "react-server-components-explained",
     coverImage: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80",
     category: "React",
-    date: "Nov 28, 2025",
-    readTime: "10 min read",
+    date: "28 Nov 2025",
+    readTime: "10 menit baca",
   },
 ]
 
@@ -61,15 +61,15 @@ export function FeaturedPosts() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
-              Featured Posts
+              Artikel Pilihan
             </h2>
             <p className="text-muted-foreground max-w-lg">
-              Explore the latest articles on web development, programming, and technology.
+              Jelajahi artikel terbaru tentang web development, pemrograman, dan teknologi.
             </p>
           </div>
           <Button variant="outline" className="mt-4 md:mt-0 group" asChild>
             <Link href="/blog">
-              View All Posts
+              Lihat Semua Artikel
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>
