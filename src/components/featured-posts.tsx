@@ -6,6 +6,14 @@ import Link from "next/link"
 // Demo data - replace with actual data fetching
 const featuredPosts = [
   {
+    title: "Panduan Instalasi Composer di Ubuntu 22.04",
+    excerpt: "Pelajari cara menginstal dan menggunakan Composer, tool manajemen dependensi PHP yang wajib dikuasai oleh setiap developer Laravel dan Symfony.",
+    slug: "panduan-instalasi-composer-ubuntu-2025-12-10",
+    coverImage: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=800&q=80",
+    category: "DevOps",
+    date: "10 Des 2025, 21:45",
+  },
+  {
     title: "Membangun Aplikasi Web Modern dengan Next.js 15",
     excerpt: "Temukan fitur terbaru di Next.js 15 dan pelajari cara membangun aplikasi web yang performan dan skalabel dengan App Router dan Server Components.",
     slug: "building-modern-web-applications-nextjs-15",
@@ -36,14 +44,6 @@ const featuredPosts = [
     coverImage: "https://images.unsplash.com/photo-1517134191118-9d595e4c8c2b?w=800&q=80",
     category: "CSS",
     date: "3 Des 2025, 16:45",
-  },
-  {
-    title: "React Server Components Dijelaskan",
-    excerpt: "Memahami cara kerja React Server Components dan kapan menggunakannya dalam aplikasi Anda.",
-    slug: "react-server-components-explained",
-    coverImage: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80",
-    category: "React",
-    date: "28 Nov 2025, 11:20",
   },
 ]
 
