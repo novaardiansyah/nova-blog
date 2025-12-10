@@ -1,14 +1,11 @@
 services:
-  portfolio:
+  nova-blog:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     container_name: nova_blog
     ports:
       - "127.0.0.1:6102:3000"
-    environment:
-      - NODE_ENV=production
-      - PORT=3000
     env_file:
       - .env.production
     restart: unless-stopped
