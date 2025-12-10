@@ -55,7 +55,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   return (
     <article className="min-h-screen bg-background pb-12">
       {/* Hero Section */}
-      <div className="relative h-[400px] w-full bg-muted/30">
+      <div className="relative h-[320px] md:h-[360px] w-full bg-muted/30">
         {post.coverImage && (
           <Image
             src={post.coverImage}
@@ -69,10 +69,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
 
         <div className="absolute bottom-0 left-0 right-0">
-          <div className="container mx-auto max-w-4xl px-4 pb-8 md:pb-12">
+          <div className="container mx-auto max-w-4xl px-4 pb-6 md:pb-8">
             <Link
               href="/"
-              className="inline-flex items-center text-sm font-medium text-gray-300 hover:text-white mb-6 transition-colors group"
+              className="inline-flex items-center text-sm font-medium text-gray-300 hover:text-white mb-4 transition-colors group"
             >
               <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
               Kembali ke Beranda

@@ -36,13 +36,13 @@ export function Hero() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <Button size="lg" className="group" asChild>
-              <Link href="/blog">
+              <Link href="/blog/panduan-instalasi-composer-ubuntu-2025-12-10">
                 Baca Artikel Terbaru
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <Link href="/about">
+              <Link href="https://novaardiansyah.my.id?utm_source=nova-blog&utm_medium=referral&utm_campaign=about" target="_blank" rel="noopener noreferrer">
                 Tentang Saya
               </Link>
             </Button>

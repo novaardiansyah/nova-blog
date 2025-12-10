@@ -56,7 +56,7 @@ export function Footer() {
           <p className="flex items-center mt-2 md:mt-0">
             Made with <Heart className="h-4 w-4 mx-1 text-red-500 fill-red-500 animate-heartbeat" /> by{" "}
             <Link
-              href="https://novaardiansyah.my.id"
+              href="https://novaardiansyah.my.id?utm_source=nova-blog&utm_medium=referral&utm_campaign=footer"
               target="_blank"
               rel="noopener noreferrer"
               className="ml-1 hover:text-foreground transition-colors underline-offset-4 hover:underline"
