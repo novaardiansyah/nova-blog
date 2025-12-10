@@ -1,0 +1,35 @@
+# Dependencies
+node_modules
+.pnpm-debug.log*
+
+# Build output
+.next
+out
+build
+dist
+
+# Git
+.git
+.gitignore
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env files (handled separately)
+.env*.local
+
+# Docs and misc
+*.md
+LICENSE
+.docs/
+
+# Docker files (avoid recursion)
+Dockerfile*
+docker-compose*
