@@ -1,65 +1,65 @@
-import { getPostBySlug, getPostSlugs } from "@/lib/api"
-import { notFound } from "next/navigation"
-import Image from "next/image"
-import Link from "next/link"
-import { ArrowLeft, Calendar, User } from "lucide-react"
-import { Metadata } from "next"
-import { MarkdownContent } from "@/components/markdown-content"
+import { getPublishedPosts, getPostBySlug, getAllPostSlugs } from "@/lib/api";
+import { notFound } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowLeft, Calendar, User, Eye } from "lucide-react";
+import { Metadata } from "next";
 
 export async function generateStaticParams() {
-  const posts = getPostSlugs()
-  return posts.map((post) => ({
-    slug: post.replace(/\.md$/, ""),
-  }))
+  const slugs = await getAllPostSlugs();
+  return slugs.map((slug) => ({
+    slug: slug,
+  }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   try {
-    const post = await getPostBySlug(slug)
+    const response = await getPostBySlug(slug);
+    const post = response.data;
     return {
-      title: post.title,
-      description: post.excerpt,
+      title: post.meta_title || post.title,
+      description: post.meta_description || post.excerpt,
       openGraph: {
-        title: post.title,
-        description: post.excerpt,
-        images: post.coverImage ? [post.coverImage] : [],
+        title: post.meta_title || post.title,
+        description: post.meta_description || post.excerpt,
+        images: post.cover_image_url ? [post.cover_image_url] : [],
       },
-    }
+    };
   } catch {
     return {
       title: "Artikel Tidak Ditemukan",
-    }
+    };
   }
 }
 
-export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+export default async function BlogPost({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
 
-  let post
+  let post;
   try {
-    post = await getPostBySlug(slug)
-  } catch (e) {
-    notFound()
+    const response = await getPostBySlug(slug);
+    post = response.data;
+  } catch {
+    notFound();
   }
-
-  // Format date
-  const date = new Date(post.date).toLocaleDateString("id-ID", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  })
 
   return (
     <article className="min-h-screen bg-background pb-12">
       {/* Hero Section */}
       <div className="relative h-[320px] md:h-[360px] w-full bg-muted/30">
-        {post.coverImage && (
+        {post.cover_image_url && (
           <Image
-            src={post.coverImage}
-            alt={post.title}
+            src={post.cover_image_url}
+            alt={post.cover_image_alt || post.title}
             fill
             className="object-cover"
             priority
@@ -80,14 +80,32 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
             <div className="space-y-4">
               <div className="flex items-center gap-3 text-sm text-gray-300">
-                <span className="font-medium text-white bg-primary/80 px-2.5 py-0.5 rounded-full backdrop-blur-sm">
-                  {post.category}
-                </span>
-                <span>•</span>
-                <span className="flex items-center">
-                  <Calendar className="mr-1.5 h-4 w-4" />
-                  {date}
-                </span>
+                {post.category && (
+                  <>
+                    <span
+                      className="font-medium text-white px-2.5 py-0.5 rounded-full backdrop-blur-sm"
+                      style={{ backgroundColor: post.category.color_hex }}
+                    >
+                      {post.category.name}
+                    </span>
+                    <span>•</span>
+                  </>
+                )}
+                {post.formatted_published_at && (
+                  <span className="flex items-center">
+                    <Calendar className="mr-1.5 h-4 w-4" />
+                    {post.formatted_published_at}
+                  </span>
+                )}
+                {post.view_count > 0 && (
+                  <>
+                    <span>•</span>
+                    <span className="flex items-center">
+                      <Eye className="mr-1.5 h-4 w-4" />
+                      {post.view_count} views
+                    </span>
+                  </>
+                )}
               </div>
 
               <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-white leading-tight drop-shadow-sm">
@@ -99,7 +117,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                   <User className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-white">{post.author?.name}</p>
+                  <p className="text-sm font-medium text-white">
+                    {post.author?.name}
+                  </p>
                   <p className="text-xs text-gray-300">Penulis</p>
                 </div>
               </div>
@@ -110,8 +130,11 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
       {/* Content */}
       <div className="container mx-auto max-w-4xl px-4 pt-12">
-        <MarkdownContent content={post.content} />
+        <div
+          className="prose prose-lg dark:prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary prose-img:rounded-xl max-w-none"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
       </div>
     </article>
-  )
+  );
 }
