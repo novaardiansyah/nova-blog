@@ -2,7 +2,7 @@ import { getPublishedPosts, getPostBySlug, getAllPostSlugs } from "@/lib/api";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Calendar, User, Eye } from "lucide-react";
+import { ArrowLeft, Calendar, User } from "lucide-react";
 import { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -66,13 +66,13 @@ export default async function BlogPost({
           />
         )}
         <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-black/60" />
 
-        <div className="absolute bottom-0 left-0 right-0">
-          <div className="container mx-auto max-w-4xl px-4 pb-6 md:pb-8">
+        <div className="absolute inset-0 flex items-center">
+          <div className="container mx-auto max-w-6xl px-4">
             <Link
               href="/"
-              className="inline-flex items-center text-sm font-medium text-gray-300 hover:text-white mb-4 transition-colors group"
+              className="inline-flex items-center text-sm font-medium text-gray-300 hover:text-white mb-6 transition-colors group"
             >
               <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
               Kembali ke Beranda
@@ -97,15 +97,6 @@ export default async function BlogPost({
                     {post.formatted_published_at}
                   </span>
                 )}
-                {post.view_count > 0 && (
-                  <>
-                    <span>•</span>
-                    <span className="flex items-center">
-                      <Eye className="mr-1.5 h-4 w-4" />
-                      {post.view_count} views
-                    </span>
-                  </>
-                )}
               </div>
 
               <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-white leading-tight drop-shadow-sm">
@@ -129,7 +120,7 @@ export default async function BlogPost({
       </div>
 
       {/* Content */}
-      <div className="container mx-auto max-w-4xl px-4 pt-12">
+      <div className="container mx-auto max-w-6xl px-4 pt-12">
         <div
           className="prose prose-lg dark:prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary prose-img:rounded-xl max-w-none"
           dangerouslySetInnerHTML={{ __html: post.content }}
