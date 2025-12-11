@@ -16,6 +16,10 @@ const nextConfig: NextConfig = {
         hostname: '100.108.9.46',
         port: '7101',
       },
+      {
+        protocol: 'https',
+        hostname: 'personal-v4.novadev.my.id',
+      }
     ],
   },
 };
