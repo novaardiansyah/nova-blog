@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: nova_blog_dev
     ports:
-      - "127.0.0.1:6102:3000"
+      - "6102:3000"
     environment:
       - NODE_ENV=development
       - PORT=3000

@@ -3,7 +3,7 @@ import { Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { FooterWrapper } from "@/components/footer-wrapper";
 
 const sourceSans = Source_Sans_3({
   variable: "--font-source-sans",
@@ -70,7 +70,7 @@ export default function RootLayout({
           <div className="relative flex min-h-screen flex-col">
             <Header />
             <main className="flex-1">{children}</main>
-            <Footer />
+            <FooterWrapper />
           </div>
         </ThemeProvider>
       </body>

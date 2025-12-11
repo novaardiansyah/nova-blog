@@ -7,7 +7,7 @@ export default function Home() {
     <>
       <Hero />
       <FeaturedPosts />
-      <Newsletter />
+      <Newsletter showBorder={false} compact />
     </>
   );
 }

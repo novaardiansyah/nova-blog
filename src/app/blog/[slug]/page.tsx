@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Calendar, User } from "lucide-react";
 import { Metadata } from "next";
+import { Newsletter } from "@/components/newsletter";
 
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs();
@@ -120,12 +121,15 @@ export default async function BlogPost({
       </div>
 
       {/* Content */}
-      <div className="container mx-auto max-w-6xl px-4 pt-12">
+      <div className="container mx-auto max-w-6xl px-4 py-12">
         <div
           className="prose prose-lg dark:prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary prose-img:rounded-xl max-w-none"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
       </div>
+
+      {/* Newsletter */}
+      <Newsletter showBorder />
     </article>
   );
 }

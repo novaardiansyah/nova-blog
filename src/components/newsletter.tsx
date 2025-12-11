@@ -4,7 +4,12 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { useState } from "react"
 
-export function Newsletter() {
+interface NewsletterProps {
+  showBorder?: boolean;
+  compact?: boolean;
+}
+
+export function Newsletter({ showBorder = true, compact = false }: NewsletterProps) {
   const [email, setEmail] = useState("")
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
@@ -21,8 +26,12 @@ export function Newsletter() {
     setTimeout(() => setStatus("idle"), 3000)
   }
 
+  const paddingClass = compact
+    ? 'pt-4 pb-8 md:pt-6 md:pb-16'
+    : 'py-12 md:py-16'
+
   return (
-    <section className="py-16 md:py-24 border-t border-border">
+    <section className={`${paddingClass} ${showBorder ? 'border-t border-border' : ''}`}>
       <div className="container mx-auto max-w-6xl px-4">
         <div className="max-w-xl">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-4">

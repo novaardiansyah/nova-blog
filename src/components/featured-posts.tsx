@@ -46,7 +46,7 @@ export async function FeaturedPosts() {
   const [featuredPost, ...otherPosts] = posts;
 
   return (
-    <section className="py-16 md:py-24">
+    <section className="pt-16 pb-4 md:pt-24 md:pb-6">
       <div className="container mx-auto max-w-6xl px-4">
         {/* Section Header */}
         <div className="flex items-end justify-between mb-12">

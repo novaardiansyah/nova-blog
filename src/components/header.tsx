@@ -12,7 +12,7 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-neutral-800 dark:bg-neutral-700 text-white text-sm font-semibold shadow-sm">
-            NA
+            NB
           </div>
           <span className="font-semibold text-xl tracking-tight">Nova Blog</span>
         </Link>
