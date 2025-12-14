@@ -12,9 +12,8 @@ const nextConfig: NextConfig = {
         hostname: 'images.unsplash.com',
       },
       {
-        protocol: 'http',
-        hostname: '100.108.9.46',
-        port: '7101',
+        protocol: 'https',
+        hostname: 'personal-v4-dev.novadev.my.id',
       },
       {
         protocol: 'https',

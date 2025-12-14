@@ -1,10 +1,12 @@
-import { getPublishedPosts, getPostBySlug, getAllPostSlugs } from "@/lib/api";
+import { getPostBySlug, getAllPostSlugs } from "@/lib/api";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Calendar, User } from "lucide-react";
 import { Metadata } from "next";
 import { Newsletter } from "@/components/newsletter";
+
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs();
