@@ -9,29 +9,61 @@ interface NewsletterProps {
   compact?: boolean;
 }
 
+interface ApiError {
+  [key: string]: string[];
+}
+
 export function Newsletter({ showBorder = true, compact = false }: NewsletterProps) {
   const [email, setEmail] = useState("")
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+  const [message, setMessage] = useState("")
+  const [errors, setErrors] = useState<ApiError | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus("loading")
+    setMessage("")
+    setErrors(null)
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setStatus("success")
-    setEmail("")
+    try {
+      const response = await fetch("/api/blog-subscribers/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      })
 
-    // Reset after 3 seconds
-    setTimeout(() => setStatus("idle"), 3000)
+      const data = await response.json()
+
+      if (data.success) {
+        setStatus("success")
+        setMessage("Terima kasih! Cek inbox Anda untuk konfirmasi.")
+        setEmail("")
+      } else {
+        setStatus("error")
+        setMessage(data.message || "Terjadi kesalahan")
+        if (data.errors) {
+          setErrors(data.errors)
+        }
+      }
+    } catch {
+      setStatus("error")
+      setMessage("Gagal terhubung ke server")
+    }
   }
 
   const paddingClass = compact
-    ? 'pt-4 pb-8 md:pt-6 md:pb-16'
-    : 'py-12 md:py-16'
+    ? "pt-4 pb-8 md:pt-6 md:pb-16"
+    : "py-12 md:py-16"
+
+  const getErrorMessages = (): string[] => {
+    if (!errors) return []
+    return Object.values(errors).flat()
+  }
 
   return (
-    <section className={`${paddingClass} ${showBorder ? 'border-t border-border' : ''}`}>
+    <section className={`${paddingClass} ${showBorder ? "border-t border-border" : ""}`}>
       <div className="container mx-auto max-w-6xl px-4">
         <div className="max-w-xl">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-4">
@@ -46,8 +78,14 @@ export function Newsletter({ showBorder = true, compact = false }: NewsletterPro
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onFocus={() => {
+                if (status === "error") {
+                  setStatus("idle")
+                  setMessage("")
+                  setErrors(null)
+                }
+              }}
               placeholder="example@novadev.my.id"
-              required
               className="w-full sm:flex-1 min-w-0 h-11 px-4 rounded-lg border border-border bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
             />
             <Button
@@ -67,10 +105,26 @@ export function Newsletter({ showBorder = true, compact = false }: NewsletterPro
             </Button>
           </form>
 
-          {status === "success" && (
+          {status === "success" && message && (
             <p className="text-sm text-green-600 dark:text-green-400 mt-3">
-              Terima kasih! Cek inbox Anda untuk konfirmasi.
+              {message}
             </p>
+          )}
+
+          {status === "error" && (
+            <div className="mt-3">
+              {getErrorMessages().length > 0 ? (
+                getErrorMessages().map((error, index) => (
+                  <p key={index} className="text-sm text-red-600 dark:text-red-400">
+                    {error}
+                  </p>
+                ))
+              ) : message && (
+                <p className="text-sm text-red-600 dark:text-red-400">
+                  {message}
+                </p>
+              )}
+            </div>
           )}
 
           <p className="text-xs text-muted-foreground mt-4">
