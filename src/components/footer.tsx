@@ -15,7 +15,7 @@ export function Footer({ showBrand = true }: FooterProps) {
 
   return (
     <footer className="border-t border-border/40 bg-muted/30">
-      <div className="container mx-auto max-w-6xl px-4 py-12">
+      <div className="container mx-auto max-w-6xl px-4 py-8">
         {showBrand && (
           <>
             <div className="flex flex-col md:flex-row md:items-start justify-between gap-8">
