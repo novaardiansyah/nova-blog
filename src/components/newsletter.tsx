@@ -15,6 +15,7 @@ interface ApiError {
 
 export function Newsletter({ showBorder = true, compact = false }: NewsletterProps) {
   const [email, setEmail] = useState("")
+  const [subscribedEmail, setSubscribedEmail] = useState("")
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [message, setMessage] = useState("")
   const [errors, setErrors] = useState<ApiError | null>(null)
@@ -39,6 +40,7 @@ export function Newsletter({ showBorder = true, compact = false }: NewsletterPro
       if (data.success) {
         setStatus("success")
         setMessage("Terima kasih! Cek inbox Anda untuk konfirmasi.")
+        setSubscribedEmail(email)
         setEmail("")
       } else {
         setStatus("error")
@@ -85,11 +87,12 @@ export function Newsletter({ showBorder = true, compact = false }: NewsletterPro
                   setErrors(null)
                 }
               }}
-              placeholder="example@novadev.my.id"
-              className="w-full sm:flex-1 min-w-0 h-11 px-4 rounded-lg border border-border bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+              placeholder={subscribedEmail || "example@novadev.my.id"}
+              className="w-full sm:flex-1 min-w-0 h-10 px-4 rounded-lg border border-border bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
             />
             <Button
               type="submit"
+              size="lg"
               disabled={status === "loading" || status === "success"}
             >
               {status === "loading" ? (
