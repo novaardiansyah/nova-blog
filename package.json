@@ -3,7 +3,7 @@
   "version": "!.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 6102 -H 127.0.0.1",
+    "dev": "next dev -p 6102",
     "build": "next build",
     "start": "next start -p 6102 -H 127.0.0.1",
     "lint": "eslint",
@@ -25,6 +25,7 @@
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "react-spinners": "^0.17.0",
+    "react-turnstile": "^1.1.4",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {

@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { useState } from "react"
+import Turnstile from "react-turnstile";
 
 interface NewsletterProps {
   showBorder?: boolean;
@@ -19,6 +20,8 @@ export function Newsletter({ showBorder = true, compact = false }: NewsletterPro
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [message, setMessage] = useState("")
   const [errors, setErrors] = useState<ApiError | null>(null)
+  const [token, setToken] = useState<string | null>(null)
+  const [captchaKey, setCaptchaKey] = useState(0)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -26,13 +29,19 @@ export function Newsletter({ showBorder = true, compact = false }: NewsletterPro
     setMessage("")
     setErrors(null)
 
+    if (!token) {
+      setStatus("error")
+      setMessage("Harap selesaikan verifikasi captcha")
+      return
+    }
+
     try {
       const response = await fetch("/api/blog-subscribers/subscribe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, captcha_token: token }),
       })
 
       const data = await response.json()
@@ -42,6 +51,8 @@ export function Newsletter({ showBorder = true, compact = false }: NewsletterPro
         setMessage("Terima kasih! Cek inbox Anda untuk konfirmasi.")
         setSubscribedEmail(email)
         setEmail("")
+        setToken(null)
+        setCaptchaKey(prev => prev + 1)
       } else {
         setStatus("error")
         setMessage(data.message || "Terjadi kesalahan")
@@ -52,6 +63,9 @@ export function Newsletter({ showBorder = true, compact = false }: NewsletterPro
     } catch {
       setStatus("error")
       setMessage("Gagal terhubung ke server")
+    } finally {
+      setToken(null)
+      setCaptchaKey(prev => prev + 1)
     }
   }
 
@@ -75,37 +89,49 @@ export function Newsletter({ showBorder = true, compact = false }: NewsletterPro
             Berlangganan newsletter untuk mendapatkan update artikel, tutorial, dan tips langsung ke inbox Anda.
           </p>
 
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onFocus={() => {
-                if (status === "error") {
-                  setStatus("idle")
-                  setMessage("")
-                  setErrors(null)
-                }
-              }}
-              placeholder={subscribedEmail || "example@novadev.my.id"}
-              className="w-full sm:flex-1 min-w-0 h-10 px-4 rounded-lg border border-border bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-            />
-            <Button
-              type="submit"
-              size="lg"
-              disabled={status === "loading" || status === "success"}
-            >
-              {status === "loading" ? (
-                "Mengirim..."
-              ) : status === "success" ? (
-                "✓ Berhasil"
-              ) : (
-                <>
-                  Langganan
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </>
-              )}
-            </Button>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onFocus={() => {
+                  if (status === "error") {
+                    setStatus("idle")
+                    setMessage("")
+                    setErrors(null)
+                  }
+                }}
+                placeholder={subscribedEmail || "example@novadev.my.id"}
+                className="w-full sm:flex-1 min-w-0 h-10 px-4 rounded-lg border border-border bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+              />
+              <Button
+                type="submit"
+                size="lg"
+                disabled={status === "loading" || status === "success" || !token}
+              >
+                {status === "loading" ? (
+                  "Mengirim..."
+                ) : status === "success" ? (
+                  "✓ Berhasil"
+                ) : (
+                  <>
+                    Langganan
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </>
+                )}
+              </Button>
+            </div>
+
+            <div className="turnstile-container">
+              <Turnstile
+                sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY as string}
+                onVerify={(token) => setToken(token)}
+                onExpire={() => setToken(null)}
+                key={captchaKey}
+                theme="auto"
+              />
+            </div>
           </form>
 
           {status === "success" && message && (
