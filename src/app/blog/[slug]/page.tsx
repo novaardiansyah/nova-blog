@@ -1,4 +1,4 @@
-import { getPostBySlug, getAllPostSlugs } from "@/lib/api";
+import { getPostBySlug, getAllPostSlugs } from "@/app/api/blogs/routes";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";

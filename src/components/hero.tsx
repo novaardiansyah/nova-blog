@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles } from "lucide-react"
 import Link from "next/link"
-import { getPublishedPosts } from "@/lib/api"
+import { getPublishedPosts } from "@/app/api/blogs/routes"
 
 export async function Hero() {
   let latestPostSlug = "";

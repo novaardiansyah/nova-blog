@@ -2,7 +2,7 @@ import { BlogPost } from "@/components/blog-card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { getPublishedPosts } from "@/lib/api";
+import { getPublishedPosts } from "@/app/api/blogs/routes";
 import { BlogPostListItem } from "@/types";
 
 export async function FeaturedPosts() {
