@@ -1,4 +1,4 @@
-import { getPostBySlug, getAllPostSlugs } from "@/app/api/blogs/routes";
+import { getPostBySlug, getAllPostSlugs } from "@/lib/api";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,11 +15,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   try {
     const response = await getPostBySlug(slug);
@@ -40,11 +36,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function BlogPost({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
   let post;
@@ -59,24 +51,13 @@ export default async function BlogPost({
     <article className="min-h-screen bg-background pb-12">
       {/* Hero Section */}
       <div className="relative h-[320px] md:h-[360px] w-full bg-muted/30">
-        {post.cover_image_url && (
-          <Image
-            src={post.cover_image_url}
-            alt={post.cover_image_alt || post.title}
-            fill
-            className="object-cover"
-            priority
-          />
-        )}
+        {post.cover_image_url && <Image src={post.cover_image_url} alt={post.cover_image_alt || post.title} fill className="object-cover" priority />}
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-black/60" />
 
         <div className="absolute inset-0 flex items-center">
           <div className="container mx-auto max-w-6xl px-4">
-            <Link
-              href="/"
-              className="inline-flex items-center text-sm font-medium text-gray-300 hover:text-white mb-6 transition-colors group"
-            >
+            <Link href="/" className="inline-flex items-center text-sm font-medium text-gray-300 hover:text-white mb-6 transition-colors group">
               <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
               Kembali ke Beranda
             </Link>
@@ -85,10 +66,7 @@ export default async function BlogPost({
               <div className="flex items-center gap-3 text-sm text-gray-300">
                 {post.category && (
                   <>
-                    <span
-                      className="font-medium text-white px-2.5 py-0.5 rounded-full backdrop-blur-sm"
-                      style={{ backgroundColor: post.category.color_hex }}
-                    >
+                    <span className="font-medium text-white px-2.5 py-0.5 rounded-full backdrop-blur-sm" style={{ backgroundColor: post.category.color_hex }}>
                       {post.category.name}
                     </span>
                     <span>•</span>
@@ -102,18 +80,14 @@ export default async function BlogPost({
                 )}
               </div>
 
-              <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-white leading-tight drop-shadow-sm">
-                {post.title}
-              </h1>
+              <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-white leading-tight drop-shadow-sm">{post.title}</h1>
 
               <div className="flex items-center gap-3 pt-2">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
                   <User className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-white">
-                    {post.author?.name}
-                  </p>
+                  <p className="text-sm font-medium text-white">{post.author?.name}</p>
                   <p className="text-xs text-gray-300">Penulis</p>
                 </div>
               </div>
@@ -124,10 +98,7 @@ export default async function BlogPost({
 
       {/* Content */}
       <div className="container mx-auto max-w-6xl px-4 py-12">
-        <div
-          className="prose prose-lg dark:prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary prose-img:rounded-xl max-w-none"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
+        <div className="prose prose-lg dark:prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary prose-img:rounded-xl max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
       </div>
 
       {/* Newsletter */}

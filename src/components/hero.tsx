@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Sparkles } from "lucide-react"
-import Link from "next/link"
-import { getPublishedPosts } from "@/app/api/blogs/routes"
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Sparkles } from "lucide-react";
+import Link from "next/link";
+import { getPublishedPosts } from "@/lib/api";
 
 export async function Hero() {
   let latestPostSlug = "";
@@ -31,17 +31,12 @@ export async function Hero() {
 
           {/* Heading */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-            Ide, Cerita, dan{" "}
-            <span className="bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent">
-              Inspirasi
-            </span>
+            Ide, Cerita, dan <span className="bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent">Inspirasi</span>
           </h1>
 
           {/* Description */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed mb-8">
-            Full Stack Developer yang antusias membuat aplikasi web dan mobile modern.
-            Bergabunglah dengan saya dalam berbagi tutorial, pengalaman, dan perjalanan
-            membangun API yang handal, antarmuka yang bersih, dan solusi terkini.
+            Full Stack Developer yang antusias membuat aplikasi web dan mobile modern. Bergabunglah dengan saya dalam berbagi tutorial, pengalaman, dan perjalanan membangun API yang handal, antarmuka yang bersih, dan solusi terkini.
           </p>
 
           {/* CTA Buttons */}
@@ -63,5 +58,5 @@ export async function Hero() {
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -1,20 +1,9 @@
-import {
-  BlogPostListItem,
-  BlogPostDetail,
-  ApiListResponse,
-  ApiDetailResponse,
-} from "@/types";
+import { BlogPostListItem, BlogPostDetail, ApiListResponse, ApiDetailResponse } from "@/types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
-/**
- * Internal fetch wrapper for API calls
- */
-async function fetchApi<T>(
-  endpoint: string,
-  options?: RequestInit
-): Promise<T> {
+async function fetchApi<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const baseUrl = API_URL?.endsWith("/") ? API_URL.slice(0, -1) : API_URL;
   const cleanEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
   const url = `${baseUrl}${cleanEndpoint}`;
@@ -38,17 +27,12 @@ async function fetchApi<T>(
 
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
-    throw new Error(
-      errorData.message || `API error: ${res.status} ${res.statusText}`
-    );
+    throw new Error(errorData.message || `API error: ${res.status} ${res.statusText}`);
   }
 
   return res.json();
 }
 
-/**
- * Query parameters for listing posts
- */
 export interface GetPostsParams {
   page?: number;
   limit?: number;
@@ -56,45 +40,30 @@ export interface GetPostsParams {
   category_id?: number;
 }
 
-/**
- * Get published blog posts with pagination
- */
-export async function getPublishedPosts(
-  params?: GetPostsParams
-): Promise<ApiListResponse<BlogPostListItem>> {
+export async function getPublishedPosts(params?: GetPostsParams): Promise<ApiListResponse<BlogPostListItem>> {
   const searchParams = new URLSearchParams();
 
   if (params?.page) searchParams.set("page", params.page.toString());
   if (params?.limit) searchParams.set("limit", params.limit.toString());
   if (params?.search) searchParams.set("search", params.search);
-  if (params?.category_id)
-    searchParams.set("category_id", params.category_id.toString());
+  if (params?.category_id) searchParams.set("category_id", params.category_id.toString());
 
   const queryString = searchParams.toString();
   const endpoint = `/blog-posts/published${queryString ? `?${queryString}` : ""}`;
 
   return fetchApi<ApiListResponse<BlogPostListItem>>(endpoint, {
-    next: { revalidate: 60 }, // Cache for 60 seconds
+    next: { revalidate: 60 },
   });
 }
 
-/**
- * Get blog post detail by slug
- */
-export async function getPostBySlug(
-  slug: string
-): Promise<ApiDetailResponse<BlogPostDetail>> {
+export async function getPostBySlug(slug: string): Promise<ApiDetailResponse<BlogPostDetail>> {
   return fetchApi<ApiDetailResponse<BlogPostDetail>>(`/blog-posts/${slug}`, {
     next: { revalidate: 60 },
   });
 }
 
-/**
- * Get all published post slugs (for static generation)
- */
 export async function getAllPostSlugs(): Promise<string[]> {
   try {
-    // Fetch all published posts to get slugs
     const response = await getPublishedPosts({ limit: 100 });
     return response.data.map((post) => post.slug);
   } catch (error) {
